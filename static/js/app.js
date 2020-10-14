@@ -19,6 +19,26 @@ function displayData(data){
 
 displayData(tableData)
 
-//select input and button
-var input = d3.select('#datetime')
-var button = d3.select("filter-btn")
+
+//created filter function
+function clickFilter(){
+//prevent page refresh
+    d3.event.preventDefault() 
+
+    let date = d3.select("#datetime").property("value");
+    let filterData = tableData;
+
+    // date entered used to filter data
+    if (date){
+    //filter rows where date is the same as the date selected
+        filterData = filterData.filter((row) => row.datetime === date);
+
+    }
+
+    displayData(filterData);
+}
+
+
+// button used to filter
+d3.selectAll("#filter-btn").on("click", clickFilter);
+displayData(tableData);
